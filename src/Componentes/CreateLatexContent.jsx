@@ -53,7 +53,7 @@ const CreateLatexContent = () => {
       return;
     }
 
-    const URL = `${backendUrl}/admin/create`;
+    const URL = `${backendUrl}/api/admin/create`;
 
     const formData = new FormData();
     formData.append("title", title);
