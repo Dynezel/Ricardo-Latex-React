@@ -12,12 +12,13 @@ const LatexContentDetail = () => {
   const { id } = useParams();
   const [content, setContent] = useState(null);
   const defaultLayoutPluginInstance = defaultLayoutPlugin();
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
     const fetchContent = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/api/latex/${id}`,
+          `${backendUrl}/api/latex/${id}`,
           {
             withCredentials: true,
           }
@@ -39,7 +40,7 @@ const LatexContentDetail = () => {
     try {
       const fileName = content.pdfPath.split("\\").pop();
       const response = await axios.get(
-        `http://localhost:8080/api/latex/download/${encodeURIComponent(
+        `${backendUrl}/api/latex/download/${encodeURIComponent(
           fileName
         )}`,
         {
@@ -66,7 +67,7 @@ const LatexContentDetail = () => {
             workerUrl={`https://unpkg.com/pdfjs-dist@2.7.570/build/pdf.worker.min.js`}
           >
             <Viewer
-              fileUrl={`http://localhost:8080/api/latex/download/${encodeURIComponent(content.pdfPath.split("\\").pop())}`}
+              fileUrl={`${backendUrl}/api/latex/download/${encodeURIComponent(content.pdfPath.split("\\").pop())}`}
               plugins={[defaultLayoutPluginInstance]}
               defaultScale={1} // Establece el zoom al 100%
             />

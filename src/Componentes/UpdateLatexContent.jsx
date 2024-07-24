@@ -9,11 +9,12 @@ const UpdateLatexContent = () => {
     const [contentText, setContentText] = useState('');
     const [categoria, setCategoria] = useState('');
     const navigate = useNavigate();
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
     useEffect(() => {
         const fetchContent = async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/api/latex/${id}`, { withCredentials: true });
+                const response = await axios.get(`${backendUrl}/api/latex/${id}`, { withCredentials: true });
                 const latexContent = response.data;
                 setContent(latexContent);
                 setTitle(latexContent.title);
@@ -29,7 +30,7 @@ const UpdateLatexContent = () => {
 
     const handleUpdate = async () => {
         try {
-            await axios.put(`http://localhost:8080/api/admin/${id}`, {
+            await axios.put(`${backendUrl}/api/admin/${id}`, {
                 title,
                 content: contentText,
                 categoria,

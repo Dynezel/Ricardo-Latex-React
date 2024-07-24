@@ -17,11 +17,12 @@ const LatexContentList = () => {
     const [isAuthorized, setIsAuthorized] = useState(false);
     const navigate = useNavigate();
     const itemsPerPage = 7;
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
     useEffect(() => {
         const fetchContent = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/api/latex', {
+                const response = await axios.get(`${backendUrl}/api/latex`, {
                     withCredentials: true
                 });
                 setContents(response.data);
@@ -36,7 +37,7 @@ const LatexContentList = () => {
     useEffect(() => {
         const fetchUserRole = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/usuarios/role', {
+                const response = await axios.get(`${backendUrl}/usuarios/role`, {
                     withCredentials: true
                 });
                 setUserRole(response.data.role);
@@ -57,7 +58,7 @@ const LatexContentList = () => {
                     setNoResultsMessage("");
                 } else {
                     const response = await axios.get(
-                        "http://localhost:8080/api/latex/buscar",
+                        `${backendUrl}/api/latex/buscar`,
                         {
                             params: { 
                                 title: filtroTitulo,
@@ -108,7 +109,7 @@ const LatexContentList = () => {
     };
 
     const handleDelete = (id) => {
-        axios.delete(`http://localhost:8080/api/admin/${id}`, { withCredentials: true })
+        axios.delete(`${backendUrl}/api/admin/${id}`, { withCredentials: true })
             .then(response => {
                 alert('Content deleted successfully');
                 // Actualiza el estado para eliminar el contenido de la vista

@@ -6,11 +6,10 @@ export default function RegistrarUsuario() {
   const [contrasenia, setContrasenia] = useState("");
   const [contrasenia2, setContrasenia2] = useState("");
   const [error, setError] = useState("");
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-
-    const URL = "http://localhost:8080/usuarios/register";
 
     try {
       // Validar campos obligatorios y contraseñas coincidentes
@@ -32,7 +31,7 @@ export default function RegistrarUsuario() {
       // Enviar solicitud POST al backend para registrar el usuario
     try {
       const response = await axios.post(
-        "http://localhost:8080/usuarios/register",
+        `${backendUrl}/usuarios/register`,
         formData, // Usamos formData en lugar de un objeto plano
       );
       console.log("Se ha registrado con exito al usuario", response.data);

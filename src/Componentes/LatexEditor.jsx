@@ -9,6 +9,7 @@ import '../css/LatexEditor.css'
 const LatexEditor = () => {
     const [latexContent, setLatexContent] = useState('');
     const [previewContent, setPreviewContent] = useState('');
+    
 
     const handleEditorChange = (editor, data, value) => {
         setLatexContent(value);

@@ -3,15 +3,16 @@ import axios from 'axios';
 
 const DeleteLatexContent = ({ match }) => {
     const [content, setContent] = useState(null);
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/latex/${match.params.id}`)
+        axios.get(`${backendUrl}/api/latex/${match.params.id}`)
             .then(response => setContent(response.data))
             .catch(error => console.error('Error fetching data:', error));
     }, [match.params.id]);
 
     const handleDelete = () => {
-        axios.delete(`http://localhost:8080/api/latex/${match.params.id}`)
+        axios.delete(`${backendUrl}/api/latex/${match.params.id}`)
             .then(() => {
                 alert('Content deleted successfully!');
                 setContent(null);

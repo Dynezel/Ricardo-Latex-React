@@ -4,11 +4,12 @@ import axios from 'axios';
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
     const handleLogin = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8080/auth/login', {
+            const response = await axios.post(`${backendUrl}/auth/login`, {
                 username,
                 password
             }, {

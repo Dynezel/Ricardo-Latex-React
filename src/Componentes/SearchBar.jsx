@@ -4,6 +4,7 @@ import axios from 'axios';
 const SearchBar = ({ setSearchResults }) => {
     const [query, setQuery] = useState("");
     const [results, setResults] = useState([]);
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
     useEffect(() => {
         const handleSearch = async () => {
@@ -13,7 +14,7 @@ const SearchBar = ({ setSearchResults }) => {
                     setResults([]);
                 } else {
                     // Si hay un término de búsqueda, buscar por el término
-                    const response = await axios.get("http://localhost:8080/api/latex/buscar",
+                    const response = await axios.get(`${backendUrl}/api/latex/buscar`,
                     {
                       params: { title: query },
                     }

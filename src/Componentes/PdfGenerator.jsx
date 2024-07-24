@@ -3,10 +3,11 @@ import { jsPDF } from 'jspdf';
 
 const PdfGenerator = ({ documentoId }) => {
     const [documento, setDocumento] = useState(null);
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
     useEffect(() => {
         // Obtener los datos del documento desde el backend
-        fetch(`http://localhost:8080/api/latex/${documentoId}`)
+        fetch(`${backendUrl}/api/latex/${documentoId}`)
             .then(response => response.json())
             .then(data => setDocumento(data))
             .catch(error => console.error('Error al obtener el documento:', error));

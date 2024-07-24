@@ -16,6 +16,8 @@ const CreateLatexContent = () => {
   const [error, setError] = useState("");
   const [previewContent, setPreviewContent] = useState("");
   const navigate = useNavigate();
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+  
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -51,7 +53,7 @@ const CreateLatexContent = () => {
       return;
     }
 
-    const URL = "http://localhost:8080/api/admin/create";
+    const URL = `${backendUrl}/admin/create`;
 
     const formData = new FormData();
     formData.append("title", title);
