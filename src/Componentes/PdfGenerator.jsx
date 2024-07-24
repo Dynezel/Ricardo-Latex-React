@@ -3,7 +3,7 @@ import { jsPDF } from 'jspdf';
 
 const PdfGenerator = ({ documentoId }) => {
     const [documento, setDocumento] = useState(null);
-    const backendUrl = process.env.REACT_APP_BACKEND_URL;
+    const backendUrl = "https://ricardo-latex-spring.onrender.com";
 
     useEffect(() => {
         // Obtener los datos del documento desde el backend

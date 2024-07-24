@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const DeleteLatexContent = ({ match }) => {
     const [content, setContent] = useState(null);
-    const backendUrl = process.env.REACT_APP_BACKEND_URL;
+    const backendUrl = "https://ricardo-latex-spring.onrender.com";
 
     useEffect(() => {
         axios.get(`${backendUrl}/api/latex/${match.params.id}`)

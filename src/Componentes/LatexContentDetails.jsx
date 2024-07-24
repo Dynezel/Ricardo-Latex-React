@@ -12,7 +12,7 @@ const LatexContentDetail = () => {
   const { id } = useParams();
   const [content, setContent] = useState(null);
   const defaultLayoutPluginInstance = defaultLayoutPlugin();
-  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+  const backendUrl = "https://ricardo-latex-spring.onrender.com";
 
   useEffect(() => {
     const fetchContent = async () => {

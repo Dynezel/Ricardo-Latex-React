@@ -16,7 +16,7 @@ const CreateLatexContent = () => {
   const [error, setError] = useState("");
   const [previewContent, setPreviewContent] = useState("");
   const navigate = useNavigate();
-  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+  const backendUrl = "https://ricardo-latex-spring.onrender.com";
   
 
   const handleFileChange = (e) => {

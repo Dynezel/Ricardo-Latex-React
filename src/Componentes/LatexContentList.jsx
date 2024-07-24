@@ -17,7 +17,7 @@ const LatexContentList = () => {
     const [isAuthorized, setIsAuthorized] = useState(false);
     const navigate = useNavigate();
     const itemsPerPage = 7;
-    const backendUrl = process.env.REACT_APP_BACKEND_URL;
+    const backendUrl = "https://ricardo-latex-spring.onrender.com";
 
     useEffect(() => {
         const fetchContent = async () => {

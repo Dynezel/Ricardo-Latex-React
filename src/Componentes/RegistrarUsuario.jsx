@@ -6,7 +6,7 @@ export default function RegistrarUsuario() {
   const [contrasenia, setContrasenia] = useState("");
   const [contrasenia2, setContrasenia2] = useState("");
   const [error, setError] = useState("");
-  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+  const backendUrl = "https://ricardo-latex-spring.onrender.com";
 
   const handleSignUp = async (e) => {
     e.preventDefault();
