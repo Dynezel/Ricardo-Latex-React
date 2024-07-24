@@ -21,6 +21,7 @@
     "@react-pdf-viewer/zoom": "^3.12.0",
     "@react-pdf/renderer": "^3.4.4",
     "axios": "^1.7.2",
+    "dotenv": "^16.4.5",
     "html-to-image": "^1.11.11",
     "html-to-pdfmake": "^2.5.11",
     "html2canvas": "^1.4.1",
