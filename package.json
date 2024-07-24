@@ -19,7 +19,7 @@
     "@react-pdf-viewer/thumbnail": "^3.12.0", 
     "@react-pdf-viewer/toolbar": "^3.12.0", 
     "@react-pdf-viewer/zoom": "^3.12.0",
-    "@react-pdf/renderer": "^3.6.0",
+    "@react-pdf/renderer": "^3.0.0",
     "axios": "^1.7.2",
     "dotenv": "^16.4.5",
     "html-to-image": "^1.11.11",
