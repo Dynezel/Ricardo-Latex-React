@@ -1,0 +1,31 @@
+.latex-content-detail {
+    max-width: 70%;
+    text-align: left;
+    margin-left: 14%;
+    margin-top: 2%;
+    width: 70%;
+    border-radius: 8px;
+    border-style: solid;
+    border-color: gray;
+}
+
+.latex-content-detail h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #333;
+    margin-left: 1%;
+}
+
+.content-details {
+    background-color: #fafafa;
+    padding: 15px;
+    border-radius: 8px;
+    color: #333;
+    font-size: 18px;
+}
+/*Estilos PDF*/
+.pdf-viewer {
+    margin: auto; /* Centra el visor en la página */
+    border: 1px solid #ccc; /* Añade un borde si lo deseas */
+    padding: 10px; /* Añade un poco de espacio alrededor del visor */
+}

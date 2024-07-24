@@ -1,0 +1,25 @@
+.latex-editor-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 20px;
+}
+
+.editor-section,
+.preview-section {
+    flex: 1;
+    margin: 10px;
+}
+
+.CodeMirror {
+    height: 500px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.latex-preview {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}

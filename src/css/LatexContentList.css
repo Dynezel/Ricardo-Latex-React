@@ -1,0 +1,131 @@
+/* Asegúrate de que el contenedor .latex-content-list esté centrado */
+.latex-content-list {
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 80%;
+    text-align: center;
+    overflow-y: scroll;
+}
+
+/* Estilos para cada elemento de contenido */
+.content-item {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin: 15px auto;
+    border-radius: 8px;
+    max-width: 92%;
+    text-align: center;
+    background-color: #fff; /* Usar blanco puro */
+    color: #000; /* Usar negro puro */
+    overflow-y: scroll;
+}
+
+/* Estilos para el título de cada contenido */
+.content-title {
+    border-radius: 5px;
+    border: 3px solid #b1b1b1;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f0f0f0; /* Usar un gris claro que funcione bien en Dark Reader */
+    color: #000; /* Usar negro puro */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.content-title:hover {
+    background-color: #e0e0e0; /* Un gris ligeramente más oscuro */
+}
+
+.content-title:active {
+    background-color: #d0d0d0; /* Un gris más oscuro */
+    box-shadow: 0 5px #888; /* Un gris oscuro para la sombra */
+    transform: translateY(3px);
+}
+
+/* Estilos para el contenido expandido */
+.content-details {
+    margin-top: 10px;
+    text-align: left;
+    background-color: #fafafa; /* Usar un gris muy claro */
+    padding: 15px;
+    border-radius: 8px;
+    color: #333; /* Usar un gris oscuro */
+    font-size: 20px;
+    overflow-y: scroll;
+}
+
+/* Otros estilos generales */
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #333; /* Usar un gris oscuro */
+}
+.category-section {
+    margin-bottom: 40px;
+}
+
+.category-title {
+    font-size: 2em;
+    margin-bottom: 30px;
+    color: #333; /* Usar un gris oscuro */
+}
+/* Estilos para el botón "Cargar más" */
+.load-more-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.load-more-button {
+    background-color: #007bff; /* Color azul */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.load-more-button:hover {
+    background-color: #0056b3; /* Azul más oscuro */
+}
+
+.load-more-button:active {
+    background-color: #003f7f; /* Azul aún más oscuro */
+    transform: translateY(2px);
+}
+
+/* Estilo para el separador de categorías */
+.category-separator {
+    border: none;
+    height: 2px;
+    background-color: #ccc; /* Color gris claro */
+    margin: 40px 0;
+}
+
+/* Estilos para el mensaje de no resultados */
+.no-results-message {
+    color: #ff0000; /* Color rojo para llamar la atención */
+    font-weight: bold;
+    margin: 20px 0;
+}
+.admin-buttons {
+    margin-top: 10px;
+}
+
+.edit-button, .delete-button {
+    margin-right: 10px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.edit-button {
+    background-color: #4CAF50; /* Green */
+    color: white;
+}
+
+.delete-button {
+    background-color: #f44336; /* Red */
+    color: white;
+}
