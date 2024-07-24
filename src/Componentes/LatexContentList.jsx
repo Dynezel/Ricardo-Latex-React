@@ -26,6 +26,7 @@ const LatexContentList = () => {
                     withCredentials: true
                 });
                 setContents(response.data);
+                console.log(backendUrl)
             } catch (error) {
                 console.error("Error fetching content", error);
             }
