@@ -30,7 +30,7 @@
     "katex": "^0.16.11",
     "latex.js": "^0.12.6",
     "pdf-lib": "^1.17.1",
-    "pdfjs-dist": "^2.16.105",
+    "pdfjs-dist": "^2.7.570",
     "pdfmake": "^0.2.10",
     "prop-types": "^15.8.1",
     "react": "^18.3.1",

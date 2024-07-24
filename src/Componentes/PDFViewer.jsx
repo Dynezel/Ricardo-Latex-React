@@ -16,4 +16,4 @@ const PDFViewer = ({ fileUrl }) => {
     );
 };
 
-export default PDFViewer();
+export default PDFViewer;
