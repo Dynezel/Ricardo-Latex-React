@@ -11,7 +11,6 @@ import "../css/LatexContentDetails.css";
 const LatexContentDetail = () => {
   const { id } = useParams();
   const [content, setContent] = useState(null);
-  const [pdfBlob, setPdfBlob] = useState(null);
   const [pdfUrl, setPdfUrl] = useState(null);
   const defaultLayoutPluginInstance = defaultLayoutPlugin();
   const backendUrl = "https://ricardo-latex-spring.onrender.com";
@@ -24,15 +23,13 @@ const LatexContentDetail = () => {
         });
         setContent(response.data);
 
-        const pdfResponse = await axios.get(
-          `${backendUrl}/api/latex/download/${id}`,
-          {
-            responseType: "blob",
-          }
-        );
-        const url = window.URL.createObjectURL(pdfResponse.data);
-        setPdfBlob(pdfResponse.data);
-        setPdfUrl(url);
+        if (response.data.pdf) {
+          const blob = new Blob([new Uint8Array(response.data.pdf)], {
+            type: "application/pdf",
+          });
+          const url = URL.createObjectURL(blob);
+          setPdfUrl(url);
+        }
       } catch (error) {
         console.error("Error fetching content", error);
       }
@@ -42,23 +39,23 @@ const LatexContentDetail = () => {
 
     return () => {
       if (pdfUrl) {
-        window.URL.revokeObjectURL(pdfUrl);
+        URL.revokeObjectURL(pdfUrl);
       }
     };
-  }, [id, pdfUrl]);
+  }, [id]);
 
   if (!content) {
     return <p>Loading...</p>;
   }
 
   const handleDownload = () => {
-    const url = window.URL.createObjectURL(pdfBlob);
+    const url = URL.createObjectURL(new Blob([new Uint8Array(content.pdf)], { type: "application/pdf" }));
     const link = document.createElement("a");
     link.href = url;
     link.setAttribute("download", `${content.title}.pdf`);
     document.body.appendChild(link);
     link.click();
-    window.URL.revokeObjectURL(url);
+    URL.revokeObjectURL(url);
   };
 
   return (
