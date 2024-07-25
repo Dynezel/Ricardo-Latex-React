@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { Worker, Viewer, SpecialZoomLevel } from "@react-pdf-viewer/core";
+import { Worker, Viewer } from "@react-pdf-viewer/core";
 import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import "@react-pdf-viewer/default-layout/lib/styles/index.css";
@@ -17,12 +17,9 @@ const LatexContentDetail = () => {
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        const response = await axios.get(
-          `${backendUrl}/api/latex/${id}`,
-          {
-            withCredentials: true,
-          }
-        );
+        const response = await axios.get(`${backendUrl}/api/latex/${id}`, {
+          withCredentials: true,
+        });
         setContent(response.data);
       } catch (error) {
         console.error("Error fetching content", error);
@@ -40,9 +37,7 @@ const LatexContentDetail = () => {
     try {
       const fileName = content.pdfPath.split("\\").pop();
       const response = await axios.get(
-        `${backendUrl}/api/latex/download/${encodeURIComponent(
-          fileName
-        )}`,
+        `${backendUrl}/api/latex/download/${encodeURIComponent(fileName)}`,
         {
           responseType: "blob",
         }
@@ -63,9 +58,7 @@ const LatexContentDetail = () => {
       <h1>{content.title}</h1>
       {content.pdfPath ? (
         <div className="pdf-viewer">
-          <Worker
-            workerUrl={`https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js`}
-          >
+          <Worker workerUrl={`https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js`}>
             <Viewer
               fileUrl={`${backendUrl}/api/latex/download/${encodeURIComponent(content.pdfPath.split("\\").pop())}`}
               plugins={[defaultLayoutPluginInstance]}
