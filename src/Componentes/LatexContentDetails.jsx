@@ -64,7 +64,7 @@ const LatexContentDetail = () => {
       {content.pdfPath ? (
         <div className="pdf-viewer">
           <Worker
-            workerUrl={`https://unpkg.com/pdfjs-dist@2.7.570/build/pdf.worker.min.js`}
+            workerUrl={`https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js`}
           >
             <Viewer
               fileUrl={`${backendUrl}/api/latex/download/${encodeURIComponent(content.pdfPath.split("\\").pop())}`}
