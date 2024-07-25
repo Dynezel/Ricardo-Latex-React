@@ -23,25 +23,25 @@ const LatexContentDetail = () => {
         });
         setContent(response.data);
 
-        if (response.data.pdf) {
-          const blob = new Blob([new Uint8Array(response.data.pdf)], {
-            type: "application/pdf",
-          });
-          const url = URL.createObjectURL(blob);
-          setPdfUrl(url);
-        }
+        const pdfResponse = await axios.get(
+          `${backendUrl}/api/latex/download/${id}`,
+          {
+            responseType: "blob",
+          }
+        );
+
+        const pdfBlob = pdfResponse.data;
+        const pdfBlobUrl = URL.createObjectURL(pdfBlob);
+        setPdfUrl(pdfBlobUrl);
+
+        // Clean up the object URL when the component unmounts or the id changes
+        return () => URL.revokeObjectURL(pdfBlobUrl);
       } catch (error) {
         console.error("Error fetching content", error);
       }
     };
 
     fetchContent();
-
-    return () => {
-      if (pdfUrl) {
-        URL.revokeObjectURL(pdfUrl);
-      }
-    };
   }, [id]);
 
   if (!content) {
@@ -49,13 +49,17 @@ const LatexContentDetail = () => {
   }
 
   const handleDownload = () => {
-    const url = URL.createObjectURL(new Blob([new Uint8Array(content.pdf)], { type: "application/pdf" }));
-    const link = document.createElement("a");
-    link.href = url;
-    link.setAttribute("download", `${content.title}.pdf`);
-    document.body.appendChild(link);
-    link.click();
-    URL.revokeObjectURL(url);
+    try {
+      const url = window.URL.createObjectURL(pdfBlob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `${content.title}.pdf`);
+      document.body.appendChild(link);
+      link.click();
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error downloading file", error);
+    }
   };
 
   return (
