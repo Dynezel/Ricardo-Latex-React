@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { Worker, Viewer } from "@react-pdf-viewer/core";
+import { Worker, Viewer, SpecialZoomLevel } from "@react-pdf-viewer/core";
 import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import "@react-pdf-viewer/default-layout/lib/styles/index.css";
@@ -11,6 +11,7 @@ import "../css/LatexContentDetails.css";
 const LatexContentDetail = () => {
   const { id } = useParams();
   const [content, setContent] = useState(null);
+  const [pdfBlob, setPdfBlob] = useState(null);
   const defaultLayoutPluginInstance = defaultLayoutPlugin();
   const backendUrl = "https://ricardo-latex-spring.onrender.com";
 
@@ -21,6 +22,13 @@ const LatexContentDetail = () => {
           withCredentials: true,
         });
         setContent(response.data);
+        const pdfResponse = await axios.get(
+          `${backendUrl}/api/latex/download/${id}`,
+          {
+            responseType: "blob",
+          }
+        );
+        setPdfBlob(pdfResponse.data);
       } catch (error) {
         console.error("Error fetching content", error);
       }
@@ -35,17 +43,10 @@ const LatexContentDetail = () => {
 
   const handleDownload = async () => {
     try {
-      const fileName = content.pdfPath.split("\\").pop();
-      const response = await axios.get(
-        `${backendUrl}/api/latex/download/${encodeURIComponent(fileName)}`,
-        {
-          responseType: "blob",
-        }
-      );
-      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const url = window.URL.createObjectURL(pdfBlob);
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute("download", fileName);
+      link.setAttribute("download", `${content.title}.pdf`);
       document.body.appendChild(link);
       link.click();
     } catch (error) {
@@ -56,11 +57,11 @@ const LatexContentDetail = () => {
   return (
     <div className="latex-content-detail">
       <h1>{content.title}</h1>
-      {content.pdfPath ? (
+      {pdfBlob ? (
         <div className="pdf-viewer">
           <Worker workerUrl={`https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js`}>
             <Viewer
-              fileUrl={`${backendUrl}/api/latex/download/${encodeURIComponent(content.pdfPath.split("\\").pop())}`}
+              fileUrl={window.URL.createObjectURL(pdfBlob)}
               plugins={[defaultLayoutPluginInstance]}
               defaultScale={1} // Establece el zoom al 100%
             />
