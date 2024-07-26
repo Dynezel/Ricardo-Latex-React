@@ -7,8 +7,11 @@
     border-radius: 8px;
     border-style: solid;
     border-color: gray;
+    /* Añadir padding para mejor visualización en dispositivos móviles */
+    padding: 20px;
 }
 
+/* Ajustar el tamaño del título */
 .latex-content-detail h1 {
     font-size: 2.5em;
     margin-bottom: 20px;
@@ -16,6 +19,7 @@
     margin-left: 1%;
 }
 
+/* Estilos del contenido */
 .content-details {
     background-color: #fafafa;
     padding: 15px;
@@ -23,16 +27,35 @@
     color: #333;
     font-size: 18px;
 }
-/*Estilos PDF*/
+
+/* Estilos del visor PDF */
 .pdf-viewer {
     margin: auto; /* Centra el visor en la página */
     border: 1px solid #ccc; /* Añade un borde si lo deseas */
     padding: 10px; /* Añade un poco de espacio alrededor del visor */
+    width: 100%; /* Asegúrate de que el visor ocupa todo el ancho del contenedor */
+    height: 80vh; /* Ajusta la altura según sea necesario */
 }
+
+/* Media queries para ajustar el diseño en dispositivos móviles */
 @media (max-width: 768px) {
-    .latex-content-detail{
-    position: relative;
-    height: 100vh; /* Full height for mobile devices */
-    width: 120%; /* Full width for mobile devices */
-  }
+    .latex-content-detail {
+        max-width: 100%;
+        margin-left: 0;
+        margin-top: 0;
+        width: 100%;
+    }
+
+    .latex-content-detail h1 {
+        font-size: 2em; /* Ajusta el tamaño del título en dispositivos móviles */
+    }
+
+    .pdf-viewer {
+        height: 100vh; /* Altura completa para móviles */
+        width: 100%; /* Ancho completo para móviles */
+    }
+
+    .content-details {
+        font-size: 16px; /* Ajusta el tamaño de fuente en móviles si es necesario */
+    }
 }
