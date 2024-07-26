@@ -67,11 +67,13 @@ const LatexContentDetail = () => {
       <h1>{content.title}</h1>
       {pdfUrl ? (
         <div className="pdf-viewer">
-          <Worker workerUrl={`https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js`}>
+          <Worker
+            workerUrl={`https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js`}
+          >
             <Viewer
-              fileUrl={pdfUrl}
+              fileUrl={window.URL.createObjectURL(pdfBlob)}
               plugins={[defaultLayoutPluginInstance]}
-              defaultScale={1} // Establece el zoom al 100%
+              defaultScale={SpecialZoomLevel.PageWidth} // Ajusta el zoom al ancho de la página
             />
           </Worker>
           <button onClick={handleDownload}>Download PDF</button>

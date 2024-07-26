@@ -1,61 +1,49 @@
 .latex-content-detail {
-    max-width: 70%;
+    max-width: 100%;
     text-align: left;
-    margin-left: 14%;
-    margin-top: 2%;
-    width: 70%;
+    margin: 0;
+    padding: 20px; /* Añadir padding para mejor visualización */
     border-radius: 8px;
     border-style: solid;
     border-color: gray;
-    /* Añadir padding para mejor visualización en dispositivos móviles */
-    padding: 20px;
 }
 
-/* Ajustar el tamaño del título */
 .latex-content-detail h1 {
-    font-size: 2.5em;
-    margin-bottom: 20px;
+    font-size: 2em; /* Ajustar el tamaño del título */
+    margin-bottom: 15px;
     color: #333;
-    margin-left: 1%;
 }
 
-/* Estilos del contenido */
 .content-details {
     background-color: #fafafa;
     padding: 15px;
     border-radius: 8px;
     color: #333;
-    font-size: 18px;
+    font-size: 16px; /* Ajustar el tamaño de fuente */
 }
 
-/* Estilos del visor PDF */
 .pdf-viewer {
-    margin: auto; /* Centra el visor en la página */
-    border: 1px solid #ccc; /* Añade un borde si lo deseas */
-    padding: 10px; /* Añade un poco de espacio alrededor del visor */
-    width: 100%; /* Asegúrate de que el visor ocupa todo el ancho del contenedor */
-    height: 80vh; /* Ajusta la altura según sea necesario */
+    margin: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 100%;
+    height: 100vh; /* Altura completa para móviles */
+    overflow: hidden; /* Asegura que el contenido no se desborde */
 }
 
-/* Media queries para ajustar el diseño en dispositivos móviles */
+/* Media queries para dispositivos móviles */
 @media (max-width: 768px) {
     .latex-content-detail {
-        max-width: 100%;
-        margin-left: 0;
-        margin-top: 0;
         width: 100%;
     }
 
     .latex-content-detail h1 {
-        font-size: 2em; /* Ajusta el tamaño del título en dispositivos móviles */
+        font-size: 1.8em; /* Ajusta el tamaño del título en dispositivos móviles */
     }
 
     .pdf-viewer {
-        height: 100vh; /* Altura completa para móviles */
-        width: 100%; /* Ancho completo para móviles */
-    }
-
-    .content-details {
-        font-size: 16px; /* Ajusta el tamaño de fuente en móviles si es necesario */
+        height: 100vh; /* Asegúrate de que el visor ocupa toda la altura disponible en móviles */
+        width: 100%;
+        overflow: hidden; /* Evita que el contenido se desborde */
     }
 }
