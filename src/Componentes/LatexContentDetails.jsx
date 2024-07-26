@@ -45,25 +45,24 @@ const LatexContentDetail = () => {
     fetchContent();
   }, [id]);
 
-  if (!content) {
-    return <p>Loading...</p>;
-  }
-
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 768) {
-        // Considera que el ancho menor a 768px es un móvil
         setZoomLevel(SpecialZoomLevel.PageWidth);
       } else {
-        // En pantallas más grandes, usa zoom al 100%
         setZoomLevel(1);
       }
     };
 
-    handleResize(); // Ajusta el zoom al inicial
-    window.addEventListener("resize", handleResize); // Añade el event listener para cambios de tamaño
-    return () => window.removeEventListener("resize", handleResize); // Limpia el event listener
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  if (!content) {
+    return <p>Loading...</p>;
+  }
+
 
   const handleDownload = () => {
     try {
