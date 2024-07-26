@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { Worker, Viewer } from "@react-pdf-viewer/core";
+import { Worker, Viewer, SpecialZoomLevel } from "@react-pdf-viewer/core";
 import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import "@react-pdf-viewer/default-layout/lib/styles/index.css";
@@ -68,12 +68,12 @@ const LatexContentDetail = () => {
       {pdfUrl ? (
         <div className="pdf-viewer">
           <Worker workerUrl={`https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js`}>
-    <Viewer
-        fileUrl={pdfUrl}
-        plugins={[defaultLayoutPluginInstance]}
-        defaultScale={SpecialZoomLevel.PageWidth} // Ajusta el zoom al ancho de la página
-    />
-</Worker>
+            <Viewer
+              fileUrl={pdfUrl}
+              plugins={[defaultLayoutPluginInstance]} 
+              defaultScale={SpecialZoomLevel.PageWidth}  // Ajusta el zoom al ancho de la página
+            />
+          </Worker>
           <button onClick={handleDownload}>Download PDF</button>
         </div>
       ) : (
