@@ -33,6 +33,6 @@
     .latex-content-detail{
     position: relative;
     height: 100vh; /* Full height for mobile devices */
-    width: 100%; /* Full width for mobile devices */
+    width: 120%; /* Full width for mobile devices */
   }
 }
