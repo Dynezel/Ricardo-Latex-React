@@ -12,6 +12,7 @@ const LatexContentDetail = () => {
   const { id } = useParams();
   const [content, setContent] = useState(null);
   const [pdfUrl, setPdfUrl] = useState(null);
+  const [zoomLevel, setZoomLevel] = useState(SpecialZoomLevel.PageWidth); // Estado para el nivel de zoom
   const defaultLayoutPluginInstance = defaultLayoutPlugin();
   const backendUrl = "https://ricardo-latex-spring.onrender.com";
 
@@ -48,6 +49,22 @@ const LatexContentDetail = () => {
     return <p>Loading...</p>;
   }
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        // Considera que el ancho menor a 768px es un móvil
+        setZoomLevel(SpecialZoomLevel.PageWidth);
+      } else {
+        // En pantallas más grandes, usa zoom al 100%
+        setZoomLevel(1);
+      }
+    };
+
+    handleResize(); // Ajusta el zoom al inicial
+    window.addEventListener("resize", handleResize); // Añade el event listener para cambios de tamaño
+    return () => window.removeEventListener("resize", handleResize); // Limpia el event listener
+  }, []);
+
   const handleDownload = () => {
     try {
       const url = window.URL.createObjectURL(pdfBlob);
@@ -71,7 +88,7 @@ const LatexContentDetail = () => {
             <Viewer
               fileUrl={pdfUrl}
               plugins={[defaultLayoutPluginInstance]} 
-              defaultScale={SpecialZoomLevel.PageWidth}  // Ajusta el zoom al ancho de la página
+              defaultScale={zoomLevel}  // Ajusta el zoom al ancho de la página
             />
           </Worker>
           <button onClick={handleDownload}>Download PDF</button>
