@@ -29,3 +29,9 @@
     border: 1px solid #ccc; /* Añade un borde si lo deseas */
     padding: 10px; /* Añade un poco de espacio alrededor del visor */
 }
+@media (max-width: 768px) {
+    .pdf-viewer{
+    height: 100vh; /* Full height for mobile devices */
+    width: 100%; /* Full width for mobile devices */
+  }
+}
