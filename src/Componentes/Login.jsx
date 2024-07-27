@@ -16,14 +16,11 @@ const Login = () => {
                 withCredentials: true
             });
             console.log(response.data);
-            // Manejar la respuesta, almacenar el token, redirigir, etc.
             if (response.status === 200) {
-              // Redirigir a la página principal
               window.location.href = '/';
             }
         } catch (error) {
             console.error('Error logging in', error);
-            // Manejar el error
         }
     };
 
