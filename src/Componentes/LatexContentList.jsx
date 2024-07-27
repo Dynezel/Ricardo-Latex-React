@@ -36,6 +36,9 @@ const LatexContentList = () => {
 
     useEffect(() => {
         const fetchUser = () => {
+            // Limpiar localStorage al cargar el componente
+            localStorage.clear();
+
             const storedUser = localStorage.getItem('user');
             if (storedUser) {
                 const user = JSON.parse(storedUser);
@@ -118,6 +121,17 @@ const LatexContentList = () => {
             });
     };
 
+    const handleLogout = async () => {
+        try {
+            await axios.post(`${backendUrl}/auth/logout`, {}, { withCredentials: true });
+            localStorage.removeItem('user');
+            setUser(null);
+            navigate("/login");
+        } catch (error) {
+            console.error('Error during logout:', error);
+        }
+    };
+
     const displayContents = searchResults.length > 0 ? searchResults : contents;
 
     const categorizedContents = displayContents.reduce((acc, content) => {
@@ -132,6 +146,7 @@ const LatexContentList = () => {
     return (
         <div className="latex-content-list">
             <h1>List of LaTeX Contents</h1>
+            {user && <button onClick={handleLogout}>Logout</button>}
             <input
                 type="text"
                 placeholder="Buscar por título"
