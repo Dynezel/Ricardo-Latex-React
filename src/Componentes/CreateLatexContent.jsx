@@ -64,19 +64,10 @@ const CreateLatexContent = () => {
     }
 
     try {
-      const user = JSON.parse(localStorage.getItem('user'));
-      const token = user ? user.token : null; // Asegúrate de que el token está presente
-
-      if (!token) {
-        setError("No está autenticado. Por favor, inicie sesión.");
-        return;
-      }
-
       const response = await axios.post(URL, formData, {
-        withCredentials: true,
+        withCredentials: true, // Asegúrate de que las credenciales se envían
         headers: {
           "Content-Type": "multipart/form-data",
-          "Authorization": `Bearer ${token}` // Asegúrate de enviar el token
         },
       });
 
