@@ -49,8 +49,8 @@ const CreateLatexContent = () => {
     e.preventDefault();
 
     if (!content && !file) {
-      setError("Debe proporcionar contenido LaTeX o un archivo PDF.");
-      return;
+        setError("Debe proporcionar contenido LaTeX o un archivo PDF.");
+        return;
     }
 
     const URL = `${backendUrl}/api/admin/create`;
@@ -64,10 +64,19 @@ const CreateLatexContent = () => {
     }
 
     try {
+      const user = JSON.parse(localStorage.getItem('user'));
+      const token = user ? user.token : null; // Asegúrate de que el token está presente
+
+      if (!token) {
+        setError("No está autenticado. Por favor, inicie sesión.");
+        return;
+      }
+
       const response = await axios.post(URL, formData, {
         withCredentials: true,
         headers: {
           "Content-Type": "multipart/form-data",
+          "Authorization": `Bearer ${token}` // Asegúrate de enviar el token
         },
       });
 
@@ -75,6 +84,7 @@ const CreateLatexContent = () => {
       navigate("/");
     } catch (error) {
       console.error("Se ha producido un error al crear el contenido: ", error);
+      setError("Se ha producido un error al crear el contenido. Verifique sus permisos.");
     }
   };
 
