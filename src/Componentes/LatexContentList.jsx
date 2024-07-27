@@ -36,11 +36,11 @@ const LatexContentList = () => {
 
     useEffect(() => {
         const fetchUser = () => {
-            const userData = localStorage.getItem('user');
-            if (userData) {
-                const parsedUser = JSON.parse(userData);
-                setUser(parsedUser);
-                console.log('Fetched user role:', parsedUser.rol); // Para depuración
+            const storedUser = localStorage.getItem('user');
+            if (storedUser) {
+                const user = JSON.parse(storedUser);
+                console.log('Fetched user:', user);
+                setUser(user);
             }
         };
 
@@ -171,7 +171,7 @@ const LatexContentList = () => {
                                         )}
                                     </div>
                                 )}
-                                {user && user.rol === 'ADMINISTRADOR' && (
+                                {user && user.authorities.some(auth => auth.authority === 'ROLE_ADMINISTRADOR') && (
                                     <div className="admin-buttons">
                                         <button onClick={() => handleEdit(content.id)} className="edit-button">
                                             Editar
