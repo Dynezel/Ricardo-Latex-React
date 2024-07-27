@@ -40,8 +40,9 @@ const LatexContentList = () => {
                 const response = await axios.get(`${backendUrl}/usuarios/role`, {
                     withCredentials: true
                 });
-                setUserRole(response.data.role);
-                setIsAuthorized(response.data.role.includes('ADMINISTRADOR'));
+                const role = response.data.role || ''; // Asegurarse de que `role` no es undefined
+                setUserRole(role);
+                setIsAuthorized(role.includes('ADMINISTRADOR'));
             } catch (error) {
                 console.error("Error fetching user role", error);
             }
