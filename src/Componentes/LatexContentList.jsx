@@ -1,10 +1,3 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import 'katex/dist/katex.min.css';
-import Latex from 'react-latex';
-import { useNavigate } from "react-router-dom";
-import '../css/LatexContentList.css';
-
 const LatexContentList = () => {
     const [contents, setContents] = useState([]);
     const [searchResults, setSearchResults] = useState([]);
@@ -25,6 +18,7 @@ const LatexContentList = () => {
                 const response = await axios.get(`${backendUrl}/api/latex`, {
                     withCredentials: true
                 });
+                console.log("Content response:", response.data);
                 setContents(response.data);
             } catch (error) {
                 console.error("Error fetching content", error);
@@ -40,10 +34,10 @@ const LatexContentList = () => {
                 const response = await axios.get(`${backendUrl}/usuarios/role`, {
                     withCredentials: true
                 });
-                const role = response.data.role || ''; // Asegurarse de que `role` no es undefined
+                console.log("User role response:", response.data);
+                const role = response.data.role || '';
                 setUserRole(role);
                 setIsAuthorized(role.includes('ADMINISTRADOR'));
-                console.log(role)
             } catch (error) {
                 console.error("Error fetching user role", error);
             }
@@ -76,6 +70,7 @@ const LatexContentList = () => {
                         setNoResultsMessage("");
                         setSearchResults(response.data);
                     }
+                    console.log("Search results:", response.data);
                 }
             } catch (error) {
                 console.error("Error al buscar contenidos:", error);
@@ -114,7 +109,6 @@ const LatexContentList = () => {
         axios.delete(`${backendUrl}/api/admin/${id}`, { withCredentials: true })
             .then(response => {
                 alert('Content deleted successfully');
-                // Actualiza el estado para eliminar el contenido de la vista
                 setContents(prevContents => prevContents.filter(content => content.id !== id));
             })
             .catch(error => {
