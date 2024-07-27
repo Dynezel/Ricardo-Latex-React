@@ -5,7 +5,6 @@ import Latex from 'react-latex';
 import { useNavigate } from "react-router-dom";
 import '../css/LatexContentList.css';
 
-
 const LatexContentList = () => {
     const [contents, setContents] = useState([]);
     const [searchResults, setSearchResults] = useState([]);
@@ -14,8 +13,7 @@ const LatexContentList = () => {
     const [expandedContentId, setExpandedContentId] = useState(null);
     const [filtroTitulo, setFiltroTitulo] = useState("");
     const [itemsToShow, setItemsToShow] = useState({});
-    const [userRole, setUserRole] = useState('');
-    const [isAuthorized, setIsAuthorized] = useState(false);
+    const [user, setUser] = useState(null);
     const navigate = useNavigate();
     const itemsPerPage = 7;
     const backendUrl = "https://ricardo-latex-spring.onrender.com";
@@ -37,21 +35,16 @@ const LatexContentList = () => {
     }, []);
 
     useEffect(() => {
-        const fetchUserRole = async () => {
-            try {
-                const response = await axios.get(`${backendUrl}/usuarios/role`, {
-                    withCredentials: true
-                });
-                console.log("User role response:", response.data);
-                const role = response.data.rol || '';
-                setUserRole(role);
-                setIsAuthorized(role.includes('ADMINISTRADOR'));
-            } catch (error) {
-                console.error("Error fetching user role", error);
+        const fetchUser = () => {
+            const userData = localStorage.getItem('user');
+            if (userData) {
+                const parsedUser = JSON.parse(userData);
+                setUser(parsedUser);
+                console.log('Fetched user role:', parsedUser.rol); // Para depuración
             }
         };
 
-        fetchUserRole();
+        fetchUser();
     }, []);
 
     useEffect(() => {
@@ -178,7 +171,7 @@ const LatexContentList = () => {
                                         )}
                                     </div>
                                 )}
-                                {isAuthorized && (
+                                {user && user.rol === 'ADMINISTRADOR' && (
                                     <div className="admin-buttons">
                                         <button onClick={() => handleEdit(content.id)} className="edit-button">
                                             Editar

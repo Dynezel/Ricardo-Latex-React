@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
     const backendUrl = "https://ricardo-latex-spring.onrender.com";
 
     const handleLogin = async (event) => {
@@ -16,9 +18,10 @@ const Login = () => {
                 withCredentials: true
             });
             console.log(response.data);
-            if (response.status === 200) {
-              window.location.href = '/';
-            }
+            // Guardar el usuario en el localStorage
+            localStorage.setItem('user', JSON.stringify(response.data));
+            // Redirigir a la página principal
+            navigate('/');
         } catch (error) {
             console.error('Error logging in', error);
         }
