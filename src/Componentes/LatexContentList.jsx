@@ -43,7 +43,7 @@ const LatexContentList = () => {
                     withCredentials: true
                 });
                 console.log("User role response:", response.data);
-                const role = response.data.role || '';
+                const role = response.data.rol || '';
                 setUserRole(role);
                 setIsAuthorized(role.includes('ADMINISTRADOR'));
             } catch (error) {
