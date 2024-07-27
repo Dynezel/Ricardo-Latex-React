@@ -5,11 +5,13 @@ import { useNavigate } from 'react-router-dom';
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
     const navigate = useNavigate();
     const backendUrl = "https://ricardo-latex-spring.onrender.com";
 
     const handleLogin = async (event) => {
         event.preventDefault();
+        setError('');
         try {
             const response = await axios.post(`${backendUrl}/auth/login`, {
                 username,
@@ -23,11 +25,22 @@ const Login = () => {
             // Redirigir a la página principal
             navigate('/');
         } catch (error) {
-            console.error('Error logging in', error);
+            if (error.response) {
+                // El servidor respondió con un estado diferente a 2xx
+                console.error('Error response', error.response);
+                setError('Login failed: ' + error.response.data);
+            } else if (error.request) {
+                // La solicitud fue hecha pero no se recibió respuesta
+                console.error('Error request', error.request);
+                setError('Login failed: No response from server');
+            } else {
+                // Algo pasó al configurar la solicitud
+                console.error('Error', error.message);
+                setError('Login failed: ' + error.message);
+            }
         }
     };
 
-    
     return (
         <form onSubmit={handleLogin}>
             <div>
@@ -38,6 +51,7 @@ const Login = () => {
                 <label>Password</label>
                 <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
             </div>
+            {error && <div style={{ color: 'red' }}>{error}</div>}
             <button type="submit">Login</button>
         </form>
     );
