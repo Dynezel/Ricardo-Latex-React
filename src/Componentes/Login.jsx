@@ -17,13 +17,12 @@ const Login = () => {
             }, {
                 withCredentials: true
             });
-            console.log(response.data);
             // Guardar el usuario en el localStorage
             localStorage.setItem('user', JSON.stringify(response.data));
             // Redirigir a la página principal
             navigate('/');
         } catch (error) {
-            console.error('Error logging in', error);
+            console.error('Bye bye 🗿');
         }
     };
 
