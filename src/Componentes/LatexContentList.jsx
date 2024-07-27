@@ -43,6 +43,7 @@ const LatexContentList = () => {
                 const role = response.data.role || ''; // Asegurarse de que `role` no es undefined
                 setUserRole(role);
                 setIsAuthorized(role.includes('ADMINISTRADOR'));
+                console.log(role)
             } catch (error) {
                 console.error("Error fetching user role", error);
             }
