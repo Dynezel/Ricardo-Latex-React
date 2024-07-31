@@ -186,7 +186,7 @@ const LatexContentList = () => {
                                         )}
                                     </div>
                                 )}
-                                {user (auth => user.Rol === 'ADMINISTRADOR') && (
+                                {user && user.rol.some(auth => auth.rol === 'ADMINISTRADOR') && (
                                     <div className="admin-buttons">
                                         <button onClick={() => handleEdit(content.id)} className="edit-button">
                                             Editar
