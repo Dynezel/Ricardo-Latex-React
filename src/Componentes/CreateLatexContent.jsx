@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Controlled as CodeMirror } from 'react-codemirror2';
 import 'codemirror/lib/codemirror.css';
-import 'codemirror/mode/stex/stex'; // Modo LaTeX para CodeMirror
+import 'codemirror/mode/stex/stex';
 import 'katex/dist/katex.min.css';
 import { BlockMath, InlineMath } from 'react-katex';
 import '../css/CreateLatex.css';
@@ -17,16 +17,14 @@ const CreateLatexContent = () => {
   const [previewContent, setPreviewContent] = useState("");
   const navigate = useNavigate();
   const backendUrl = "https://ricardo-latex-spring.onrender.com";
-  
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
-    setContent(""); // Limpiar el contenido cuando se selecciona un archivo PDF
+    setContent("");
   };
 
   const handleEditorChange = (editor, data, value) => {
     setContent(value);
-    // Convertir el contenido LaTeX en HTML utilizando KaTeX para vista previa
     try {
       const parsedContent = value
         .split('\n')
@@ -77,7 +75,7 @@ const CreateLatexContent = () => {
       console.error("Se ha producido un error al crear el contenido: ", error);
       setError("Se ha producido un error al crear el contenido. Verifique sus permisos.");
     }
-  };
+};
 
   return (
     <form onSubmit={handleSubmit} className="form-container">
@@ -102,7 +100,7 @@ const CreateLatexContent = () => {
             lineNumbers: true
           }}
           onBeforeChange={handleEditorChange}
-          disabled={file !== null} // Deshabilita el CodeMirror si hay un archivo PDF seleccionado
+          disabled={file !== null}
         />
       </div>
       <div className="form-group">
