@@ -17,6 +17,7 @@ const LatexContentList = () => {
     const navigate = useNavigate();
     const itemsPerPage = 7;
     const backendUrl = "https://ricardo-latex-spring.onrender.com";
+    const username = "usuarioActual"; // Asegúrate de obtener el nombre de usuario actual de alguna manera
 
     useEffect(() => {
         const fetchContent = async () => {
@@ -35,20 +36,20 @@ const LatexContentList = () => {
     }, []);
 
     useEffect(() => {
-        const checkAuthentication = async () => {
+        const fetchUser = async () => {
             try {
-                const response = await axios.get(`${backendUrl}/auth/check`, {
-                    withCredentials: true,
+                const response = await axios.get(`${backendUrl}/usuarios/${username}`, {
+                    withCredentials: true
                 });
                 setUser(response.data); // Ajusta según la estructura de la respuesta
             } catch (error) {
-                console.error("Error checking authentication:", error);
+                console.error("Error fetching user:", error);
                 setUser(null);
             }
         };
-    
-        checkAuthentication();
-    }, []);
+
+        fetchUser();
+    }, [username]);
 
     useEffect(() => {
         const handleBusquedaTituloYCategoria = async () => {
@@ -186,7 +187,7 @@ const LatexContentList = () => {
                                         )}
                                     </div>
                                 )}
-                                {user && user.rol.some(auth => auth.rol === 'ADMINISTRADOR') && (
+                                {user && user.rol === 'ADMINISTRADOR' && (
                                     <div className="admin-buttons">
                                         <button onClick={() => handleEdit(content.id)} className="edit-button">
                                             Editar
