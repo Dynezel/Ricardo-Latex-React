@@ -35,19 +35,19 @@ const LatexContentList = () => {
     }, []);
 
     useEffect(() => {
-        const fetchUser = () => {
-            // Limpiar localStorage al cargar el componente
-            localStorage.clear();
-
-            const storedUser = localStorage.getItem('user');
-            if (storedUser) {
-                const user = JSON.parse(storedUser);
-                console.log('Fetched user:', user);
-                setUser(user);
+        const checkAuthentication = async () => {
+            try {
+                const response = await axios.get(`${backendUrl}/auth/check`, {
+                    withCredentials: true,
+                });
+                setUser(response.data); // Ajusta según la estructura de la respuesta
+            } catch (error) {
+                console.error("Error checking authentication:", error);
+                setUser(null);
             }
         };
-
-        fetchUser();
+    
+        checkAuthentication();
     }, []);
 
     useEffect(() => {
@@ -186,7 +186,7 @@ const LatexContentList = () => {
                                         )}
                                     </div>
                                 )}
-                                {user && user.authorities.some(auth => auth.authority === 'ROLE_ADMINISTRADOR') && (
+                                {user (auth => user.Rol === 'ADMINISTRADOR') && (
                                     <div className="admin-buttons">
                                         <button onClick={() => handleEdit(content.id)} className="edit-button">
                                             Editar
