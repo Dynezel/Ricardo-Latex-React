@@ -13,35 +13,33 @@ const Login = () => {
     event.preventDefault();
     setError('');
     try {
-        const response = await axios.post(`${backendUrl}/logincheck`, 
-            new URLSearchParams({
-                username: username,
-                password: password
-            }), 
-            {
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                withCredentials: true
-            }
-        );
+        const response = await axios.post(`${backendUrl}/logincheck`, {
+            username,
+            password
+        }, {
+            withCredentials: true
+        });
         console.log(response.data);
+        // Guardar el usuario en el localStorage
         localStorage.setItem('user', JSON.stringify(response.data));
+        // Redirigir a la página principal
         navigate('/');
     } catch (error) {
         if (error.response) {
+            // El servidor respondió con un estado diferente a 2xx
             console.error('Error response', error.response);
             setError('Login failed: ' + error.response.data);
         } else if (error.request) {
+            // La solicitud fue hecha pero no se recibió respuesta
             console.error('Error request', error.request);
             setError('Login failed: No response from server');
         } else {
+            // Algo pasó al configurar la solicitud
             console.error('Error', error.message);
             setError('Login failed: ' + error.message);
         }
     }
 };
-
   return (
     <form onSubmit={handleLogin}>
       <div>
