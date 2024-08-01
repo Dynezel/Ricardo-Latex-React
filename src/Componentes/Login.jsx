@@ -13,7 +13,7 @@ const Login = () => {
     event.preventDefault();
     setError('');
     try {
-        const response = await axios.post(`https://ricardo-latex-spring.onrender.com/perform_login`, {
+        const response = await axios.post(`https://ricardo-latex-spring.onrender.com/logincheck`, {
             username,
             password
         }, {
