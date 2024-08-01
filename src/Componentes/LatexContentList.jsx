@@ -147,7 +147,11 @@ const LatexContentList = () => {
     return (
         <div className="latex-content-list">
             <h1>List of LaTeX Contents</h1>
-            <p> {user.rol} </p>
+            {user && (
+                                    <div className="admin-buttons">
+                                        <p>user.rol</p>
+                                    </div>
+                                )}
             {user && <button onClick={handleLogout}>Logout</button>}
             <input
                 type="text"
