@@ -13,7 +13,7 @@ const Login = () => {
     event.preventDefault();
     setError('');
     try {
-        const response = await axios.post(`${backendUrl}/auth/login`, 
+        const response = await axios.post(`${backendUrl}/logincheck`, 
             new URLSearchParams({
                 username: username,
                 password: password
