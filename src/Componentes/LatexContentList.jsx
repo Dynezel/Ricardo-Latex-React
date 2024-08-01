@@ -149,7 +149,7 @@ const LatexContentList = () => {
             <h1>List of LaTeX Contents</h1>
             {user && (
                                     <div>
-                                        <p> {user.rol}</p>
+                                        <p> {user.username}, {user.rol}</p>
                                     </div>
                                 )}
             {user && <button onClick={handleLogout}>Logout</button>}
