@@ -9,21 +9,21 @@ const Login = () => {
     const handleLogin = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post('https://ricardo-latex-spring.onrender.com/auth/login', {
-                username,
-                password
-            }, {
-                withCredentials: true
-            });
+            const response = await axios.post('https://ricardo-latex-spring.onrender.com/auth/login', 
+                `username=${username}&password=${password}`, 
+                {
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    withCredentials: true,
+                }
+            );
             console.log(response.data);
-            // Manejar la respuesta, almacenar el token, redirigir, etc.
             if (response.status === 200) {
-              // Redirigir a la página principal
-              window.location.href = '/';
+                window.location.href = '/';
             }
         } catch (error) {
             console.error('Error logging in', error);
-            // Manejar el error
         }
     };
 
