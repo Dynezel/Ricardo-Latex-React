@@ -42,6 +42,7 @@ const LatexContentList = () => {
                     withCredentials: true
                 });
                 setUser(response.data); // Ajusta según la estructura de la respuesta
+                console.log(response.data)
             } catch (error) {
                 console.error("Error fetching user:", error);
                 setUser(null);
