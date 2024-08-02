@@ -14,6 +14,8 @@ const LatexContentList = () => {
     const [filtroTitulo, setFiltroTitulo] = useState("");
     const [itemsToShow, setItemsToShow] = useState({});
     const [user, setUser] = useState(null);
+    const [creationCode, setCreationCode] = useState("");
+    const [isAdmin, setIsAdmin] = useState(false);
     const navigate = useNavigate();
     const itemsPerPage = 7;
     const backendUrl = "https://ricardo-latex-spring.onrender.com";
@@ -134,6 +136,15 @@ const LatexContentList = () => {
         }
     };
 
+    const checkCreationCode = () => {
+        const expectedCode = "YOUR_EXPECTED_CODE"; // Reemplaza con el código de creación correcto
+        if (creationCode === expectedCode) {
+            setIsAdmin(true);
+        } else {
+            alert("Código de creación incorrecto");
+        }
+    };
+
     const displayContents = searchResults.length > 0 ? searchResults : contents;
 
     const categorizedContents = displayContents.reduce((acc, content) => {
@@ -149,10 +160,10 @@ const LatexContentList = () => {
         <div className="latex-content-list">
             <h1>List of LaTeX Contents</h1>
             {user && (
-                                    <div>
-                                        <p> {user.username}, {user.rol}</p>
-                                    </div>
-                                )}
+                <div>
+                    <p>{user.username}, {user.rol}</p>
+                </div>
+            )}
             {user && <button onClick={handleLogout}>Logout</button>}
             <input
                 type="text"
@@ -193,7 +204,7 @@ const LatexContentList = () => {
                                         )}
                                     </div>
                                 )}
-                                {user && user.rol === 'ADMINISTRADOR' && (
+                                {isAdmin && (
                                     <div className="admin-buttons">
                                         <button onClick={() => handleEdit(content.id)} className="edit-button">
                                             Editar
@@ -216,6 +227,18 @@ const LatexContentList = () => {
                     {index < Object.keys(categorizedContents).length - 1 && <hr className="category-separator" />}
                 </React.Fragment>
             ))}
+            <div className="creation-code-section">
+                <input
+                    type="text"
+                    placeholder="Ingresar código de creación"
+                    value={creationCode}
+                    onChange={(e) => setCreationCode(e.target.value)}
+                    className="creation-code-input"
+                />
+                <button onClick={checkCreationCode} className="check-code-button">
+                    Verificar código
+                </button>
+            </div>
         </div>
     );
 };
