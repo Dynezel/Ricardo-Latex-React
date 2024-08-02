@@ -136,12 +136,21 @@ const LatexContentList = () => {
         }
     };
 
-    const checkCreationCode = () => {
-        const expectedCode = "YOUR_EXPECTED_CODE"; // Reemplaza con el código de creación correcto
-        if (creationCode === expectedCode) {
-            setIsAdmin(true);
-        } else {
-            alert("Código de creación incorrecto");
+    const checkCreationCode = async () => {
+        try {
+            const response = await axios.post(`${backendUrl}/api/admin/verify-code`, creationCode, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (response.data) {
+                setIsAdmin(true);
+            } else {
+                alert("Código de creación incorrecto");
+            }
+        } catch (error) {
+            console.error("Error verifying code:", error);
+            alert("Error al verificar el código");
         }
     };
 
