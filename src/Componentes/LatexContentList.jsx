@@ -14,8 +14,6 @@ const LatexContentList = () => {
     const [filtroTitulo, setFiltroTitulo] = useState("");
     const [itemsToShow, setItemsToShow] = useState({});
     const [user, setUser] = useState(null);
-    const [codigoCreacion, setCodigoCreacion] = useState(""); // Nuevo estado para el código de creación
-    const [codigoValido, setCodigoValido] = useState(false); // Nuevo estado para validar el código
     const navigate = useNavigate();
     const itemsPerPage = 7;
     const backendUrl = "https://ricardo-latex-spring.onrender.com";
@@ -98,106 +96,126 @@ const LatexContentList = () => {
         setItemsToShow(initialItemsToShow);
     }, [contents]);
 
-    const handleLoadMore = (categoria) => {
-        setItemsToShow(prevState => ({
-            ...prevState,
-            [categoria]: prevState[categoria] + itemsPerPage
+    const toggleExpanded = (id) => {
+        navigate(`/latex/${id}`);
+    };
+
+    const loadMore = (category) => {
+        setItemsToShow(prevItemsToShow => ({
+            ...prevItemsToShow,
+            [category]: prevItemsToShow[category] + itemsPerPage
         }));
     };
 
-    const handleExpand = (contentId) => {
-        setExpandedContentId(prevContentId => prevContentId === contentId ? null : contentId);
+    const handleEdit = (id) => {
+        navigate(`/update/${id}`);
     };
 
-    const handleDelete = async (contentId) => {
-        try {
-            await axios.delete(`${backendUrl}/api/admin/delete/${contentId}`, {
-                withCredentials: true
+    const handleDelete = (id) => {
+        axios.delete(`${backendUrl}/api/admin/${id}`, { withCredentials: true })
+            .then(response => {
+                alert('Content deleted successfully');
+                setContents(prevContents => prevContents.filter(content => content.id !== id));
+            })
+            .catch(error => {
+                console.error('Error deleting content:', error);
+                alert('Failed to delete content');
             });
-            setContents(prevContents => prevContents.filter(content => content.id !== contentId));
+    };
+
+    const handleLogout = async () => {
+        try {
+            await axios.post(`${backendUrl}/auth/logout`, {}, { withCredentials: true });
+            localStorage.removeItem('user');
+            setUser(null);
+            navigate("/login");
         } catch (error) {
-            console.error("Error deleting content:", error);
+            console.error('Error during logout:', error);
         }
     };
 
-    const handleUpdate = (contentId) => {
-        navigate(`/update-latex/${contentId}`);
-    };
+    const displayContents = searchResults.length > 0 ? searchResults : contents;
 
-    const handleCodigoCreacionChange = (e) => {
-        setCodigoCreacion(e.target.value);
-    };
-
-    const handleCodigoCreacionSubmit = () => {
-        // Validar el código de creación ingresado
-        if (codigoCreacion === "CODIGO_VALIDO") { // Cambiar "CODIGO_VALIDO" por el código correcto
-            setCodigoValido(true);
-        } else {
-            setCodigoValido(false);
+    const categorizedContents = displayContents.reduce((acc, content) => {
+        const { categoria } = content;
+        if (!acc[categoria]) {
+            acc[categoria] = [];
         }
-    };
+        acc[categoria].push(content);
+        return acc;
+    }, {});
 
     return (
-        <div className="content-list-container">
-            <h1>Latex Content List</h1>
-            <div className="search-filters">
-                <input
-                    type="text"
-                    placeholder="Buscar por título"
-                    value={filtroTitulo}
-                    onChange={(e) => setFiltroTitulo(e.target.value)}
-                    className="search-input"
-                />
-                <div className="dropdown">
-                    <button className="dropbtn">Categoría</button>
-                    <div className="dropdown-content">
-                        <a href="#" onClick={() => setCategoriaSeleccionada("")}>Todas</a>
-                        <a href="#" onClick={() => setCategoriaSeleccionada("Cristianismo")}>Cristianismo</a>
-                        <a href="#" onClick={() => setCategoriaSeleccionada("Matematica")}>Matematica</a>
-                    </div>
-                </div>
-            </div>
+        <div className="latex-content-list">
+            <h1>List of LaTeX Contents</h1>
+            {user && (
+                                    <div>
+                                        <p> {user.username}, {user.rol}</p>
+                                    </div>
+                                )}
+            {user && <button onClick={handleLogout}>Logout</button>}
+            <input
+                type="text"
+                placeholder="Buscar por título"
+                value={filtroTitulo}
+                onChange={(e) => setFiltroTitulo(e.target.value)}
+                className="busqueda-input"
+            />
+            <select
+                value={categoriaSeleccionada}
+                onChange={(e) => setCategoriaSeleccionada(e.target.value)}
+                className="categoria-select"
+            >
+                <option value="">Todas las categorías</option>
+                <option value="Cristianismo">Cristianismo</option>
+                <option value="Matematica">Matematica</option>
+            </select>
             {noResultsMessage && <p className="no-results-message">{noResultsMessage}</p>}
-            {searchResults.length === 0 ? (
-                <p>No hay contenidos disponibles.</p>
-            ) : (
-                searchResults.map((content) => (
-                    <div key={content.id} className="content-item">
-                        <h2>{content.title}</h2>
-                        <Latex>{content.content}</Latex>
-                        {content.pdf && (
-                            <a href={`data:application/pdf;base64,${content.pdf}`} download={`${content.title}.pdf`}>
-                                Descargar PDF
-                            </a>
-                        )}
-                        <button onClick={() => handleExpand(content.id)}>
-                            {expandedContentId === content.id ? 'Mostrar Menos' : 'Mostrar Más'}
-                        </button>
-                        {expandedContentId === content.id && (
-                            <div className="expanded-content">
-                                <Latex>{content.content}</Latex>
-                                {codigoValido && (
-                                    <div className="admin-actions">
-                                        <button onClick={() => handleUpdate(content.id)}>Editar</button>
-                                        <button onClick={() => handleDelete(content.id)}>Eliminar</button>
+            {Object.keys(categorizedContents).map((category, index) => (
+                <React.Fragment key={category}>
+                    <div className="category-section">
+                        <h2 className="category-title"><u>{category}</u></h2>
+                        {categorizedContents[category].slice(0, itemsToShow[category]).map(content => (
+                            <div key={content.id} className="content-item">
+                                <h3 
+                                    className="content-title" 
+                                    onClick={() => toggleExpanded(content.id)}
+                                    style={{ cursor: 'pointer' }}
+                                >
+                                    {content.title}
+                                </h3>
+                                {expandedContentId === content.id && (
+                                    <div className="content-details">
+                                        {typeof content.content === 'string' ? (
+                                            <Latex>{content.content}</Latex>
+                                        ) : (
+                                            <p>Error: content no es una cadena de texto.</p>
+                                        )}
+                                    </div>
+                                )}
+                                {user && user.rol === 'ADMINISTRADOR' && (
+                                    <div className="admin-buttons">
+                                        <button onClick={() => handleEdit(content.id)} className="edit-button">
+                                            Editar
+                                        </button>
+                                        <button onClick={() => handleDelete(content.id)} className="delete-button">
+                                            Eliminar
+                                        </button>
                                     </div>
                                 )}
                             </div>
-                        )}
+                        ))}
                     </div>
-                ))
-            )}
-            <div className="codigo-creacion">
-                <textarea
-                    placeholder="Ingrese el código de creación"
-                    value={codigoCreacion}
-                    onChange={handleCodigoCreacionChange}
-                    className="codigo-input"
-                />
-                <button onClick={handleCodigoCreacionSubmit} className="codigo-submit">
-                    Validar Código
-                </button>
-            </div>
+                    {categorizedContents[category].length > itemsToShow[category] && (
+                        <div className="load-more-container">
+                            <button onClick={() => loadMore(category)} className="load-more-button">
+                                Cargar más
+                            </button>
+                        </div>
+                    )}
+                    {index < Object.keys(categorizedContents).length - 1 && <hr className="category-separator" />}
+                </React.Fragment>
+            ))}
         </div>
     );
 };
