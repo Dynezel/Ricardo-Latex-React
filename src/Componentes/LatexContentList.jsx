@@ -145,8 +145,10 @@ const LatexContentList = () => {
             });
             if (response.data) {
                 setIsAdmin(true);
+                console.log(response.data)
             } else {
                 alert("Código de creación incorrecto");
+                console.log(response.data)
             }
         } catch (error) {
             console.error("Error verifying code:", error);
