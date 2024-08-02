@@ -13,6 +13,7 @@ const CreateLatexContent = () => {
   const [content, setContent] = useState("");
   const [categoria, setCategoria] = useState("");
   const [file, setFile] = useState(null);
+  const [codigoCreacion, setCodigoCreacion] = useState(""); // Nuevo estado para el código de creación
   const [error, setError] = useState("");
   const [previewContent, setPreviewContent] = useState("");
   const navigate = useNavigate();
@@ -57,13 +58,14 @@ const CreateLatexContent = () => {
     formData.append("title", title);
     formData.append("content", content);
     formData.append("categoria", categoria);
+    formData.append("codigoCreacion", codigoCreacion); // Añadir el código de creación al formData
     if (file) {
       formData.append("file", file);
     }
 
     try {
       const response = await axios.post(URL, formData, {
-        withCredentials: true, // Asegúrate de que las credenciales se envían
+        withCredentials: true,
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -117,6 +119,16 @@ const CreateLatexContent = () => {
           <a href="#" onClick={() => setCategoria("Cristianismo")}>Cristianismo</a>
           <a href="#" onClick={() => setCategoria("Matematica")}>Matematica</a>
         </div>
+      </div>
+      <div className="form-group">
+        <input
+          type="text"
+          placeholder="Código de Creación"
+          value={codigoCreacion}
+          onChange={(e) => setCodigoCreacion(e.target.value)}
+          required
+          className="form-input"
+        />
       </div>
       <button type="submit" className="form-button">Subir</button>
       <div className="preview-section">
