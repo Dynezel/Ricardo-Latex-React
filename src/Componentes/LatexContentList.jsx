@@ -138,17 +138,20 @@ const LatexContentList = () => {
 
     const checkCreationCode = async () => {
         try {
-            const response = await axios.post(`${backendUrl}/api/admin/verify-code`, creationCode, {
+            const response = await axios.post(`${backendUrl}/api/admin/verify-code`, 
+            {
+                code: creationCode
+            }, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
             if (response.data) {
                 setIsAdmin(true);
-                console.log(response.data)
+                console.log(response.data);
             } else {
                 alert("Código de creación incorrecto");
-                console.log(response.data)
+                console.log(response.data);
             }
         } catch (error) {
             console.error("Error verifying code:", error);
