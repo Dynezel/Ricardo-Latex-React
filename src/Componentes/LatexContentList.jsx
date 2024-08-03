@@ -138,26 +138,26 @@ const LatexContentList = () => {
 
     const checkCreationCode = async () => {
         try {
-            const response = await axios.post(`${backendUrl}/api/admin/verify-code`, 
-            {
-                code: creationCode
-            }, {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-            if (creationCode.toLowerCase() == 'si') {
+            if (creationCode.toLowerCase() === 'si') {
                 // Scroll to top of the page
-                window.scrollTo(0,0);
-                console.log("Asdcazsdf")
-            if (response.data) {
-                
+                window.scrollTo(0, 0);
+            } else {
+                const response = await axios.post(`${backendUrl}/api/admin/verify-code`, 
+                {
+                    code: creationCode
+                }, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.data) {
                     setIsAdmin(true);
                     console.log(response.data);
+                } else {
+                    // No alert for incorrect code
+                    console.log("Invalid creation code.");
                 }
-            } else {
-                // No alert for incorrect code
-                console.log("Invalid creation code.");
             }
         } catch (error) {
             console.error("Error verifying code:", error);
