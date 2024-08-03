@@ -149,6 +149,7 @@ const LatexContentList = () => {
             if (creationCode.toLowerCase() == 'si') {
                 // Scroll to top of the page
                 window.scrollTo(0,0);
+                console.log("Asdcazsdf")
             if (response.data) {
                 
                     setIsAdmin(true);
@@ -249,7 +250,7 @@ const LatexContentList = () => {
             <div className="creation-code-section">
                 <input
                     type="text"
-                    placeholder="Ingresar código de creación"
+                    placeholder='Volver arriba? "Si"'
                     value={creationCode}
                     onChange={(e) => setCreationCode(e.target.value)}
                     className="creation-code-input"
