@@ -137,11 +137,6 @@ const LatexContentList = () => {
     };
 
     const checkCreationCode = async () => {
-        if (creationCode.toLowerCase() === "si") {
-            navigate("/"); // Redirige al inicio si el código es "Sí" o "si"
-            return;
-        }
-
         try {
             const response = await axios.post(`${backendUrl}/api/admin/verify-code`, 
             {
@@ -151,14 +146,22 @@ const LatexContentList = () => {
                     'Content-Type': 'application/json'
                 }
             });
+
             if (response.data) {
-                setIsAdmin(true);
-                console.log("Admin permissions granted");
+                if (creationCode.toLowerCase() === 'si') {
+                    // Scroll to top of the page
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                    setIsAdmin(true);
+                    console.log(response.data);
+                }
             } else {
-                console.log("Code verification failed");
+                // No alert for incorrect code
+                console.log("Invalid creation code.");
             }
         } catch (error) {
             console.error("Error verifying code:", error);
+            // Handle the error silently
         }
     };
 
