@@ -137,6 +137,11 @@ const LatexContentList = () => {
     };
 
     const checkCreationCode = async () => {
+        if (creationCode.trim().toLowerCase() === "si") {
+            navigate("/");
+            return;
+        }
+
         try {
             const response = await axios.post(`${backendUrl}/api/admin/verify-code`, 
             {
@@ -149,15 +154,8 @@ const LatexContentList = () => {
             if (response.data) {
                 setIsAdmin(true);
                 console.log(response.data);
-
-                // Mostrar el mensaje de confirmación
-                const confirmRedirect = window.confirm("Volver al inicio de la página?");
-                if (confirmRedirect) {
-                    navigate("/");
-                }
             } else {
-                alert("Código de creación incorrecto");
-                console.log(response.data);
+                console.log("Código de creación incorrecto");
             }
         } catch (error) {
             console.error("Error verifying code:", error);
