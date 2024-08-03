@@ -150,7 +150,7 @@ const LatexContentList = () => {
             if (response.data) {
                 if (creationCode.toLowerCase() == 'si') {
                     // Scroll to top of the page
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    window.scrollTo(0,0);
                 } else {
                     setIsAdmin(true);
                     console.log(response.data);
