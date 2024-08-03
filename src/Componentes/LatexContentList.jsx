@@ -148,7 +148,7 @@ const LatexContentList = () => {
             });
 
             if (response.data) {
-                if (creationCode.toLowerCase() === 'si') {
+                if (creationCode.toLowerCase() == 'si') {
                     // Scroll to top of the page
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 } else {
