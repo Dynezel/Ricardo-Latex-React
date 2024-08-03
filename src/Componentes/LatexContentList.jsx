@@ -44,7 +44,7 @@ const LatexContentList = () => {
                     withCredentials: true
                 });
                 setUser(response.data); // Ajusta según la estructura de la respuesta
-                console.log(response.data)
+                console.log(response.data);
             } catch (error) {
                 console.error("Error fetching user:", error);
                 setUser(null);
@@ -149,6 +149,12 @@ const LatexContentList = () => {
             if (response.data) {
                 setIsAdmin(true);
                 console.log(response.data);
+
+                // Mostrar el mensaje de confirmación
+                const confirmRedirect = window.confirm("Volver al inicio de la página?");
+                if (confirmRedirect) {
+                    navigate("/");
+                }
             } else {
                 alert("Código de creación incorrecto");
                 console.log(response.data);
