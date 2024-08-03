@@ -256,7 +256,7 @@ const LatexContentList = () => {
                     className="creation-code-input"
                 />
                 <button onClick={checkCreationCode} className="check-code-button">
-                    Verificar código
+                    Volver Arriba
                 </button>
             </div>
         </div>
