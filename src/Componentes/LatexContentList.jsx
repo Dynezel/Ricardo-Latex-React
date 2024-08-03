@@ -137,8 +137,8 @@ const LatexContentList = () => {
     };
 
     const checkCreationCode = async () => {
-        if (creationCode.trim().toLowerCase() === "si") {
-            navigate("/");
+        if (creationCode.toLowerCase() === "si") {
+            navigate("/"); // Redirige al inicio si el código es "Sí" o "si"
             return;
         }
 
@@ -153,13 +153,12 @@ const LatexContentList = () => {
             });
             if (response.data) {
                 setIsAdmin(true);
-                console.log(response.data);
+                console.log("Admin permissions granted");
             } else {
-                console.log("Código de creación incorrecto");
+                console.log("Code verification failed");
             }
         } catch (error) {
             console.error("Error verifying code:", error);
-            alert("Error al verificar el código");
         }
     };
 
