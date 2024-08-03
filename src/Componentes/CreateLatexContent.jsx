@@ -58,7 +58,7 @@ const CreateLatexContent = () => {
     formData.append("title", title);
     formData.append("content", content);
     formData.append("categoria", categoria);
-    formData.append("codigoCreacion", codigoCreacion); // Añadir el código de creación al formData
+    formData.append("creationKey", codigoCreacion); // Añadir el código de creación al formData
     if (file) {
       formData.append("file", file);
     }
