@@ -52,7 +52,7 @@ const CreateLatexContent = () => {
         return;
     }
 
-    const URL = `${backendUrl}/api/admin/create`;
+    const URL = `${backendUrl}/api/admin/create/3d9b4c8e-2764-4d1f-84df-12fa9a123d49-93b1f0d9c7a8a9cba5e9d8c3a7b2f4e6`;
 
     const formData = new FormData();
     formData.append("title", title);
