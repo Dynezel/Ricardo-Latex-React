@@ -19,7 +19,6 @@ const LatexContentList = () => {
     const navigate = useNavigate();
     const itemsPerPage = 7;
     const backendUrl = "https://ricardo-latex-spring.onrender.com";
-    const username = "usuarioActual"; // Asegúrate de obtener el nombre de usuario actual de alguna manera
 
     useEffect(() => {
         const fetchContent = async () => {
@@ -27,7 +26,6 @@ const LatexContentList = () => {
                 const response = await axios.get(`${backendUrl}/api/latex`, {
                     withCredentials: true
                 });
-                console.log("Content response:", response.data);
                 setContents(response.data);
             } catch (error) {
                 console.error("Error fetching content", error);
@@ -36,23 +34,6 @@ const LatexContentList = () => {
 
         fetchContent();
     }, []);
-
-    useEffect(() => {
-        const fetchUser = async () => {
-            try {
-                const response = await axios.get(`${backendUrl}/usuarios/${username}`, {
-                    withCredentials: true
-                });
-                setUser(response.data); // Ajusta según la estructura de la respuesta
-                console.log(response.data);
-            } catch (error) {
-                console.error("Error fetching user:", error);
-                setUser(null);
-            }
-        };
-
-        fetchUser();
-    }, [username]);
 
     useEffect(() => {
         const handleBusquedaTituloYCategoria = async () => {
@@ -78,7 +59,6 @@ const LatexContentList = () => {
                         setNoResultsMessage("");
                         setSearchResults(response.data);
                     }
-                    console.log("Search results:", response.data);
                 }
             } catch (error) {
                 console.error("Error al buscar contenidos:", error);
@@ -125,20 +105,9 @@ const LatexContentList = () => {
             });
     };
 
-    const handleLogout = async () => {
-        try {
-            await axios.post(`${backendUrl}/auth/logout`, {}, { withCredentials: true });
-            localStorage.removeItem('user');
-            setUser(null);
-            navigate("/login");
-        } catch (error) {
-            console.error('Error during logout:', error);
-        }
-    };
-
     const checkCreationCode = async () => {
         try {
-            if (creationCode.toLowerCase() === 'si') {
+            if (creationCode.toLowerCase() === 'si'|| creationCode.length() === 0) {
                 // Scroll to top of the page
                 window.scrollTo(0, 0);
             } else {
@@ -153,15 +122,12 @@ const LatexContentList = () => {
 
                 if (response.data) {
                     setIsAdmin(true);
-                    console.log(response.data);
                 } else {
-                    // No alert for incorrect code
-                    console.log("Invalid creation code.");
+                    console.log("Error.");
                 }
             }
         } catch (error) {
-            console.error("Error verifying code:", error);
-            // Handle the error silently
+            console.error("Error.");
         }
     };
 

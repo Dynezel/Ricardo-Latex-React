@@ -31,9 +31,9 @@ const CreateLatexContent = () => {
         .split('\n')
         .map((line, index) => {
           if (line.startsWith('$') && line.endsWith('$')) {
-            return <InlineMath key={index}>{line.replace(/\$/g, '')}</InlineMath>;
+            return <Latex key={index}>{line.replace(/\$/g, '')}</Latex>;
           } else if (line.startsWith('$$') && line.endsWith('$$')) {
-            return <BlockMath key={index}>{line.replace(/\$\$/g, '')}</BlockMath>;
+            return <Latex key={index}>{line.replace(/\$\$/g, '')}</Latex>;
           }
           return <div key={index}>{line}</div>;
         });
@@ -58,7 +58,7 @@ const CreateLatexContent = () => {
     formData.append("title", title);
     formData.append("content", content);
     formData.append("categoria", categoria);
-    formData.append("creationKey", codigoCreacion); // Añadir el código de creación al formData
+    formData.append("creationKey", codigoCreacion);
     if (file) {
       formData.append("file", file);
     }
@@ -74,8 +74,7 @@ const CreateLatexContent = () => {
       console.log("Respuesta del servidor: ", response.data);
       navigate("/");
     } catch (error) {
-      console.error("Se ha producido un error al crear el contenido: ", error);
-      setError("Se ha producido un error al crear el contenido. Verifique sus permisos.");
+      setError("Se ha producido un error al crear el contenido", error);
     }
 };
 
