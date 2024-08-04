@@ -31,9 +31,9 @@ const CreateLatexContent = () => {
         .split('\n')
         .map((line, index) => {
           if (line.startsWith('$') && line.endsWith('$')) {
-            return <Latex key={index}>{line.replace(/\$/g, '')}</Latex>;
+            return <Latex key={index}>{line}</Latex>;
           } else if (line.startsWith('$$') && line.endsWith('$$')) {
-            return <Latex key={index}>{line.replace(/\$\$/g, '')}</Latex>;
+            return <Latex key={index}>{line}</Latex>;
           }
           return <div key={index}>{line}</div>;
         });
