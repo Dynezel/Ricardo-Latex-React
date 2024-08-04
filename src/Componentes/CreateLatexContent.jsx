@@ -7,6 +7,7 @@ import 'codemirror/mode/stex/stex';
 import 'katex/dist/katex.min.css';
 import { BlockMath, InlineMath } from 'react-katex';
 import '../css/CreateLatex.css';
+import Latex from "react-latex";
 
 const CreateLatexContent = () => {
   const [title, setTitle] = useState("");
