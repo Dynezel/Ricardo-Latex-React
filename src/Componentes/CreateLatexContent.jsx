@@ -24,26 +24,6 @@ const CreateLatexContent = () => {
     setContent("");
   };
 
-  const handleEditorChange = (editor, data, value) => {
-    setContent(value);
-    try {
-      const parsedContent = value
-        .split('\n')
-        .map((line, index) => {
-          if (line.startsWith('$') && line.endsWith('$')) {
-            return <Latex key={index}>{line}</Latex>;
-          } else if (line.startsWith('$$') && line.endsWith('$$')) {
-            return <Latex key={index}>{line}</Latex>;
-          }
-          return <div key={index}>{line}</div>;
-        });
-      setPreviewContent(parsedContent);
-    } catch (error) {
-      console.error('Error rendering LaTeX:', error);
-      setPreviewContent(<p>Error rendering LaTeX</p>);
-    }
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -130,12 +110,6 @@ const CreateLatexContent = () => {
         />
       </div>
       <button type="submit" className="form-button">Subir</button>
-      <div className="preview-section">
-        <h2>Vista Previa</h2>
-        <div className="latex-preview">
-          {previewContent}
-        </div>
-      </div>
     </form>
   );
 };
