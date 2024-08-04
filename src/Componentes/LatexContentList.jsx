@@ -142,7 +142,7 @@ const LatexContentList = () => {
                 // Scroll to top of the page
                 window.scrollTo(0, 0);
             } else {
-                const response = await axios.post(`${backendUrl}/api/admin//verify-code/6f9d3c2e-1a5b-4d6e-90bc-89f3c4e7b1a2-47e1c9d6f0a5b8d7e6c9a3b2c1f8e0d9`, 
+                const response = await axios.post(`${backendUrl}/api/admin/verify-code/6f9d3c2e-1a5b-4d6e-90bc-89f3c4e7b1a2-47e1c9d6f0a5b8d7e6c9a3b2c1f8e0d9`, 
                 {
                     code: creationCode
                 }, {
