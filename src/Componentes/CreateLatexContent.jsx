@@ -31,12 +31,7 @@ const CreateLatexContent = () => {
       const parsedContent = value
         .split('\n')
         .map((line, index) => {
-          if (line.startsWith('$') && line.endsWith('$')) {
-            return <Latex key={index}>{line}</Latex>;
-          } else if (line.startsWith('$$') && line.endsWith('$$')) {
-            return <Latex key={index}>{line}</Latex>;
-          }
-          return <div key={index}>{line}</div>;
+          return <Latex key={index}>{line}</Latex>;
         });
       setPreviewContent(parsedContent);
     } catch (error) {
