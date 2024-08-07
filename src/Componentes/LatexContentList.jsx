@@ -145,74 +145,74 @@ const LatexContentList = () => {
     return (
         <div className="latex-content-list">
             <h1>Contenidos</h1>
-            {user && (
-                <div>
-                    <p>{user.username}, {user.rol}</p>
-                </div>
-            )}
-            {user && <button onClick={handleLogout}>Logout</button>}
-            <input
-                type="text"
-                placeholder="Buscar por título"
-                value={filtroTitulo}
-                onChange={(e) => setFiltroTitulo(e.target.value)}
-                className="busqueda-input"
-            />
-            <select
-                value={categoriaSeleccionada}
-                onChange={(e) => setCategoriaSeleccionada(e.target.value)}
-                className="categoria-select"
-            >
-                <option value="">Todas las categorías</option>
-                <option value="Cristianismo">Cristianismo</option>
-                <option value="Matematica">Matematica</option>
-            </select>
-            {noResultsMessage && <p className="no-results-message">{noResultsMessage}</p>}
-            {Object.keys(categorizedContents).map((category, index) => (
-                <React.Fragment key={category}>
-                    <div className="category-section">
-                        <h2 className="category-title"><u>{category}</u></h2>
-                        {categorizedContents[category].slice(0, itemsToShow[category]).map(content => (
-                            <div key={content.id} className="content-item">
-                                <h3 
-                                    className="content-title" 
-                                    onClick={() => toggleExpanded(content.id)}
-                                    style={{ cursor: 'pointer' }}
-                                >
-                                    {content.title}
-                                </h3>
-                                {expandedContentId === content.id && (
-                                    <div className="content-details">
-                                        {typeof content.content === 'string' ? (
-                                            <Latex>{content.content}</Latex>
-                                        ) : (
-                                            <p>Error: content no es una cadena de texto.</p>
+            {contents.length === 0 ? (
+                <p className="loading-message">Cargando datos, esto puede tardar más de un minuto...</p>
+            ) : (
+                <>
+                    <input
+                        type="text"
+                        placeholder="Buscar por título"
+                        value={filtroTitulo}
+                        onChange={(e) => setFiltroTitulo(e.target.value)}
+                        className="busqueda-input"
+                    />
+                    <select
+                        value={categoriaSeleccionada}
+                        onChange={(e) => setCategoriaSeleccionada(e.target.value)}
+                        className="categoria-select"
+                    >
+                        <option value="">Todas las categorías</option>
+                        <option value="Cristianismo">Cristianismo</option>
+                        <option value="Matematica">Matematica</option>
+                    </select>
+                    {noResultsMessage && <p className="no-results-message">{noResultsMessage}</p>}
+                    {Object.keys(categorizedContents).map((category, index) => (
+                        <React.Fragment key={category}>
+                            <div className="category-section">
+                                <h2 className="category-title"><u>{category}</u></h2>
+                                {categorizedContents[category].slice(0, itemsToShow[category]).map(content => (
+                                    <div key={content.id} className="content-item">
+                                        <h3 
+                                            className="content-title" 
+                                            onClick={() => toggleExpanded(content.id)}
+                                            style={{ cursor: 'pointer' }}
+                                        >
+                                            {content.title}
+                                        </h3>
+                                        {expandedContentId === content.id && (
+                                            <div className="content-details">
+                                                {typeof content.content === 'string' ? (
+                                                    <Latex>{content.content}</Latex>
+                                                ) : (
+                                                    <p>Error: content no es una cadena de texto.</p>
+                                                )}
+                                            </div>
+                                        )}
+                                        {isAdmin && (
+                                            <div className="admin-buttons">
+                                                <button onClick={() => handleEdit(content.id)} className="edit-button">
+                                                    Editar
+                                                </button>
+                                                <button onClick={() => handleDelete(content.id)} className="delete-button">
+                                                    Eliminar
+                                                </button>
+                                            </div>
                                         )}
                                     </div>
-                                )}
-                                {isAdmin && (
-                                    <div className="admin-buttons">
-                                        <button onClick={() => handleEdit(content.id)} className="edit-button">
-                                            Editar
-                                        </button>
-                                        <button onClick={() => handleDelete(content.id)} className="delete-button">
-                                            Eliminar
-                                        </button>
-                                    </div>
-                                )}
+                                ))}
                             </div>
-                        ))}
-                    </div>
-                    {categorizedContents[category].length > itemsToShow[category] && (
-                        <div className="load-more-container">
-                            <button onClick={() => loadMore(category)} className="load-more-button">
-                                Cargar más
-                            </button>
-                        </div>
-                    )}
-                    {index < Object.keys(categorizedContents).length - 1 && <hr className="category-separator" />}
-                </React.Fragment>
-            ))}
+                            {categorizedContents[category].length > itemsToShow[category] && (
+                                <div className="load-more-container">
+                                    <button onClick={() => loadMore(category)} className="load-more-button">
+                                        Cargar más
+                                    </button>
+                                </div>
+                            )}
+                            {index < Object.keys(categorizedContents).length - 1 && <hr className="category-separator" />}
+                        </React.Fragment>
+                    ))}
+                </>
+            )}
             <div className="creation-code-section">
                 <input
                     type="text"
