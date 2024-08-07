@@ -144,7 +144,7 @@ const LatexContentList = () => {
 
     return (
         <div className="latex-content-list">
-            <h1>List of LaTeX Contents</h1>
+            <h1>Contenidos</h1>
             {user && (
                 <div>
                     <p>{user.username}, {user.rol}</p>
