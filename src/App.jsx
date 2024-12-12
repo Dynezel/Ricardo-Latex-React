@@ -7,11 +7,13 @@ import DeleteLatexContent from './Componentes/DeleteLatexContent'
 import Login from './Componentes/Login';
 import RegistrarUsuario from './Componentes/RegistrarUsuario';
 import LatexContentDetail from './Componentes/LatexContentDetails';
+import Navbar from './Componentes/Navbar';
 
 function App() {
   return (
     <>
         <BrowserRouter>
+        <Navbar/>
         <Routes>
             <Route path="/" element={ <LatexContentList/> } />
             <Route path="/latex/:id" element={ <LatexContentDetail/> } />
