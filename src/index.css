@@ -16,5 +16,6 @@ code {
   display: block;
   font-size: 40px;
   font-family: "Lexend Deca";
-  color: black;
+  color: rgb(37, 36, 36);
+  text-decoration: none;
 }
