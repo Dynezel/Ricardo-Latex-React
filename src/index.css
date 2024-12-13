@@ -12,6 +12,7 @@ code {
     monospace;
 }
 .inicio {
+  margin-top: 1%;
   text-align: center;
   display: block;
   font-size: 40px;
