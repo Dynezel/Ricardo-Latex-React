@@ -11,3 +11,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.inicio {
+  text-align: center;
+  display: block;
+  font-size: 40px;
+  font-family: "Lexend Deca";
+  color: black;
+}
