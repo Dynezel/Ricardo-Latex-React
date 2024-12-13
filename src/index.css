@@ -14,12 +14,16 @@ code {
 .inicio {
   margin-top: 1%;
   text-align: center;
-  display: block;
   font-size: 40px;
   font-family: "Lexend Deca";
   color: rgb(37, 36, 36);
   text-decoration: none;
 }
-.inicio:hover{
+.inicio:hover {
   text-decoration: underline;
+}
+.centro-pagina {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
