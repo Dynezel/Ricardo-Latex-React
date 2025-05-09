@@ -4,7 +4,7 @@ import axios from 'axios';
 const SearchBar = ({ setSearchResults }) => {
     const [query, setQuery] = useState("");
     const [results, setResults] = useState([]);
-    const backendUrl = "https://ricardo-latex-spring.onrender.com";
+    const backendUrl = "https://ricardo-latex-spring-production.up.railway.app";
 
     useEffect(() => {
         const handleSearch = async () => {

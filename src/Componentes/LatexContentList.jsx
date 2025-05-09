@@ -18,7 +18,7 @@ const LatexContentList = () => {
     const [isAdmin, setIsAdmin] = useState(false);
     const navigate = useNavigate();
     const itemsPerPage = 7;
-    const backendUrl = "https://ricardo-latex-spring.onrender.com";
+    const backendUrl = "https://ricardo-latex-spring-production.up.railway.app";
 
     useEffect(() => {
         const fetchContent = async () => {

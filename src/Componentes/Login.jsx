@@ -9,7 +9,7 @@ const Login = () => {
     const handleLogin = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post('https://ricardo-latex-spring.onrender.com/auth/login', 
+            const response = await axios.post('https://ricardo-latex-spring-production.up.railway.app/auth/login', 
                 `username=${username}&password=${password}`, 
                 {
                     headers: {

@@ -10,7 +10,7 @@ const UpdateLatexContent = () => {
   const [contentText, setContentText] = useState("");
   const [categoria, setCategoria] = useState("");
   const navigate = useNavigate();
-  const backendUrl = "https://ricardo-latex-spring.onrender.com";
+  const backendUrl = "https://ricardo-latex-spring-production.up.railway.app";
 
   useEffect(() => {
     const fetchContent = async () => {

@@ -14,7 +14,7 @@ const LatexContentDetail = () => {
   const [pdfUrl, setPdfUrl] = useState(null);
   const [zoomLevel, setZoomLevel] = useState(SpecialZoomLevel.PageWidth); // Estado para el nivel de zoom
   const defaultLayoutPluginInstance = defaultLayoutPlugin();
-  const backendUrl = "https://ricardo-latex-spring.onrender.com";
+  const backendUrl = "https://ricardo-latex-spring-production.up.railway.app";
 
   useEffect(() => {
     const fetchContent = async () => {
