@@ -107,7 +107,6 @@ const LatexContentList = () => {
 
     const checkCreationCode = async () => {
         try {
-            console.log("Codigo recibido: " + creationCode)
             if (creationCode.toLowerCase() === 'si'|| creationCode.length === 0) {
                 // Scroll to top of the page
                 window.scrollTo(0, 0);
@@ -123,12 +122,10 @@ const LatexContentList = () => {
 
                 if (response.data) {
                     setIsAdmin(true);
-                } else {
-                    console.log("Error al dar permisos" + error);
                 }
             }
         } catch (error) {
-            console.error("Error " + error);
+            console.error("Error");
         }
     };
 
@@ -147,7 +144,7 @@ const LatexContentList = () => {
         <div className="latex-content-list">
             <h1>Contenidos</h1>
             {contents.length === 0 ? (
-                <p className="loading-message">Cargando datos, esto puede tardar más de un minuto...</p>
+                <p className="loading-message">Cargando datos...</p>
             ) : (
                 <>
                     <input
