@@ -108,7 +108,7 @@ const LatexContentList = () => {
     const checkCreationCode = async () => {
         try {
             console.log("Codigo recibido: " + creationCode)
-            if (creationCode.toLowerCase() === 'si'|| creationCode.length() === 0) {
+            if (creationCode.toLowerCase() === 'si'|| creationCode.length === 0) {
                 // Scroll to top of the page
                 window.scrollTo(0, 0);
             } else {
