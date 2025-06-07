@@ -107,6 +107,7 @@ const LatexContentList = () => {
 
     const checkCreationCode = async () => {
         try {
+            console.log("Codigo recibido: " + creationCode)
             if (creationCode.toLowerCase() === 'si'|| creationCode.length() === 0) {
                 // Scroll to top of the page
                 window.scrollTo(0, 0);
@@ -123,11 +124,11 @@ const LatexContentList = () => {
                 if (response.data) {
                     setIsAdmin(true);
                 } else {
-                    console.log("Error.");
+                    console.log("Error al dar permisos" + error);
                 }
             }
         } catch (error) {
-            console.error("Error.");
+            console.error("Error " + error);
         }
     };
 
